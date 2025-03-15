@@ -1,6 +1,8 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 import time
+import os
+from datetime import datetime
 
 # Initialize Flask app
 app = Flask(__name__, static_folder='../frontend/dist', static_url_path='/')
@@ -17,16 +19,18 @@ def process_text():
     data = request.json
     user_text = data.get('text', '')
     
+
     # In a real application, you would do some analysis here
     # For this example, let's just simulate processing time
     time.sleep(1)  # Simulate processing time
-    
+    print(datetime.now())
     # Generate a question based on the text
     # In a real app, this would be more sophisticated
-    question = f"Does the text '{user_text[:30]}...' contain important information?"
+    question = f" '{user_text[:30]}...' contain important information?"
     
     return jsonify(
         question=question,
+        currentStep='question', # used to determine what page is rendered next
         success=True
     )
 
@@ -45,13 +49,23 @@ def answer():
     # Generate a result based on the answer
     if answer == 'yes':
         result = "Thank you for confirming! We've recorded that this text contains important information."
-    else:
-        result = "Thanks for your input! We've noted that this text doesn't contain important information."
-    
-    return jsonify(
+        return jsonify(
         result=result,
+        currentStep='result', # This is how we determine what page is rendered
         success=True
     )
+
+    else:
+        result = "Thanks for your input! We've noted that this text doesn't contain important information."
+        return jsonify(
+        result=result,
+        currentStep='question', # This is how we determine what page is rendered
+        success=True
+    )
+    
+
+
+    
 
 # Route to serve React app
 @app.route('/')

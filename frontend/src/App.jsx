@@ -20,7 +20,7 @@ function App() {
     try {
       const response = await axios.post('/api/process-text', { text: userInput })
       setQuestion(response.data.question)
-      setCurrentStep('question')
+      setCurrentStep(response.data.currentStep)
     } catch (error) {
       console.error("Error processing text:", error)
       setCurrentStep('input')
@@ -36,11 +36,11 @@ function App() {
       const response = await axios.post('/api/answer', { 
         text: userInput,
         question: question,
-        answer: answer 
+        answer: answer,
       })
       
       setFinalResult(response.data.result)
-      setCurrentStep('result')
+      setCurrentStep(response.data.currentStep)
     } catch (error) {
       console.error("Error submitting answer:", error)
     } finally {
@@ -58,11 +58,11 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Text Analysis App</h1>
+        <h1>Whatswrongwithme?</h1>
         
         {currentStep === 'input' && (
           <div className="input-section">
-            <h2>Enter Your Text</h2>
+            <h2>Enter Your Symptoms</h2>
             <form onSubmit={handleSubmit}>
               <textarea
                 value={userInput}
