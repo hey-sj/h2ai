@@ -115,7 +115,7 @@ if __name__ == "__main__":
     print("Probabilities of different diagnoses based on confirmed symptoms:")
     sorted_diagnoses = sorted(new_diagnosis_probabilities.items(), key=lambda x: x[1], reverse=True)
     for diagnosis, probability in sorted_diagnoses:
-        if probability > 0.10:
+        if probability > 0.05:
             print(f"{diagnosis}: {probability:.4f}")
 
     # extract a list of symptoms for diagnoses where probability is over 10%
@@ -125,6 +125,7 @@ if __name__ == "__main__":
             associated_symptoms = symptoms.columns[(symptoms[prognosis == diagnosis].sum() > 0).values].tolist()
             symptoms_for_diagnoses[diagnosis] = associated_symptoms
 
+    # debug
     print(symptoms_for_diagnoses)
 
     # combine the list of symptoms for each diagnosis, unique values only
@@ -132,6 +133,7 @@ if __name__ == "__main__":
     for symptoms_list in symptoms_for_diagnoses.values():
         all_symptoms.update(symptoms_list)
 
+    # debug
     print(all_symptoms)
 
     # remove the confirmed symptoms from the list
