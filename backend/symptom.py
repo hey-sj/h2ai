@@ -14,9 +14,10 @@ from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 # This is symptoms and diagnoses
+filepath = 'symbipredict_2022.csv'
 
 # Load the data
-data = pd.read_csv('symbipredict_2022.csv')
+data = pd.read_csv(filepath)
 data.columns = data.columns.str.replace('_', ' ')
 
 # Extract symptoms and diagnoses
@@ -139,7 +140,7 @@ if __name__ == "__main__":
             symptoms_for_diagnoses[diagnosis] = associated_symptoms
 
     # debug
-    print(symptoms_for_diagnoses)
+    print("symptoms for dianoses", symptoms_for_diagnoses)
 
     # combine the list of symptoms for each diagnosis, unique values only
     all_symptoms = set()
@@ -147,11 +148,14 @@ if __name__ == "__main__":
         all_symptoms.update(symptoms_list)
 
     # debug
-    print(all_symptoms)
+    print("all symptoms", all_symptoms)
 
     # remove the confirmed symptoms from the list
     for symptom in confirmed_symptoms:
-        all_symptoms.remove(symptom)
+        if symptom in all_symptoms:
+            all_symptoms.remove(symptom)
+
+
 
     # ask the user about the remaining symptoms
     for symptom in all_symptoms:
