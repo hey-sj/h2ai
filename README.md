@@ -7,9 +7,13 @@ https://app.mural.co/t/symptomsproject2446/m/symptomsproject2446/1741996740868/3
 
 To Run: 
 1. Clone the Repo
-2. In terminal, cd into the backend folder.
-3. run source venv/bin/activate # Mac Linux   or  venv/Scripts/activate # Windows
-4. run python app.py
-5. cd into the frontend directory
-6. run npm run dev
-7. navigate to http://localhost:5000 in your browser
+2. `git pull`
+3. In terminal, cd into the backend folder.
+4. run `python -m venv venv`
+5. run `pip install -r requirements.txt`
+6. run `python app.py`
+7. create a new terminal window
+8. cd into the frontend directory
+9. run `npm install`
+10. run `npm run dev`
+11. navigate to http://localhost:5000 in your browser
