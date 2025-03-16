@@ -9,7 +9,11 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
 
+
+
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
+
+# This is symptoms and diagnoses
 
 # Load the data
 data = pd.read_csv('symbipredict_2022.csv')
@@ -35,16 +39,20 @@ w2v = gensim.models.Word2Vec(
 tokenizer = AutoTokenizer.from_pretrained("Charangan/MedBERT")
 model = AutoModel.from_pretrained("Charangan/MedBERT")
 
+# Detect useful words
 def find_significant_words(input):
     words = input.split()
     significant_words = [word for word in words if word.lower() not in ENGLISH_STOP_WORDS]
     return significant_words
+
 
 def get_medbert_embeddings(texts):
     inputs = tokenizer(texts, return_tensors='pt', padding=True, truncation=True, max_length=512)
     with torch.no_grad():
         outputs = model(**inputs)
     return outputs.last_hidden_state.mean(dim=1)
+
+
 
 def find_similar_symptoms(user_input, symptoms, num_similar=10):
     significant_words = find_significant_words(user_input)
@@ -64,6 +72,11 @@ def find_similar_symptoms(user_input, symptoms, num_similar=10):
 
     similar_symptoms = sorted(similar_symptoms, key=lambda x: x[1], reverse=True)
     return [symptom for symptom, _ in similar_symptoms]
+
+
+
+
+
 
 # Main function
 if __name__ == "__main__":
