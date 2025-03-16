@@ -10,10 +10,11 @@ To Run:
 2. `git pull`
 3. In terminal, cd into the backend folder.
 4. run `python -m venv venv`
-5. run `pip install -r requirements.txt`
-6. run `python app.py`
-7. create a new terminal window
-8. cd into the frontend directory
-9. run `npm install`
-10. run `npm run dev`
-11. navigate to http://localhost:5000 in your browser
+5. on Windows: run `venv/Scripts/activate` on Unix: `source venv/bin/activate`
+7. run `pip install -r requirements.txt`
+8. run `python app.py`
+9. create a new terminal window
+10. cd into the frontend directory
+11. run `npm install`
+12. run `npm run dev`
+13. navigate to http://localhost:5000 in your browser
