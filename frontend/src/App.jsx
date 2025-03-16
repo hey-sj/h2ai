@@ -168,7 +168,7 @@ function App() {
               {question}
             </p>
             
-            <div style={{ display: 'flex', gap: '1rem' }}>
+            <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
               <button
                 onClick={() => handleAnswer('yes')}
                 style={{
@@ -258,7 +258,7 @@ function App() {
               {question}
             </p>
             
-            <div style={{ display: 'flex', gap: '1rem' }}>
+            <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
               <button
                 onClick={() => handleDiagnosis('yes')}
                 style={{
